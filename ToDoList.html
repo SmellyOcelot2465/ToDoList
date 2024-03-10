@@ -1,0 +1,169 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+<style>
+ .TaskTile{
+            display: flex;
+            align-items: center;
+            max-width: 400px;
+            min-height: 60px;
+            height: auto;
+            background-color: gainsboro;
+            box-shadow: 1px 2px 5px darkgray;
+            border-radius: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: 20px;
+        }
+        .TaskName{
+            margin-right: 20px;
+            width: 170px;
+            font-size: 17px;
+            font-family: monospace;
+            color: black;
+        }
+        .TaskDate{
+
+            font-family: monospace;
+            font-size: 13px;
+            margin-right: 20px;
+            width: 70px;
+        }
+        .check{
+            margin-right: 30px;
+            
+        }
+        .delete-bttn{
+            background-color: white;
+            border: none;
+            height: 30px;
+            width: 50px;
+        }
+        .delete-bttn:hover{
+            background-color: lightgray;
+            cursor: pointer;
+            
+        }
+        .task{
+          padding-left: 10px;
+          text-decoration: none;
+          font-size: 15px;
+          width: 170px;
+          height: 40px;
+        }
+        .calendar{
+          margin-left: 10px;
+          padding: 10px;
+          height: 40px;
+        }
+        .AddBttn{
+          margin-left: 10px;
+          background-color: rgb(66, 216, 66);
+          border: none;
+          font-family: inter;
+          color: white;
+          width: 80px;
+          height: 40px;
+        }
+        .check:hover{
+          cursor: pointer;
+        }
+        .AddBttn:hover{
+          cursor: pointer;
+        }
+</style>
+</head>
+<body style="display: flex; justify-content: center; margin-top: 50px;">
+
+  <div style="margin-bottom: 20px;">
+    <h1 style="font-family: Inter;">To Do List</h1>
+    <input class="task" placeholder="Enter a Task" type="text">
+    <input class="calendar" type="date">
+    <button class="AddBttn" onclick="AddTask();">Add</button>
+    <p  class="text"></p>
+  </div>
+    <script>
+      
+      // arrays
+       let taskarr=[];
+       let datearr=[];
+
+      //  Elements
+       let date=document.querySelector(".calendar");
+       let taskname=document.querySelector(".task");
+       let para=document.querySelector(".text");
+
+      // variables
+       let htmllist=``;
+       let i;
+
+      //  fucntions
+
+       function check(i){
+        const t= document.getElementById(`T${i}`);
+        if(t.style.textDecoration==='')
+            {           
+                t.style.textDecoration="line-through";
+            }
+            else{
+                t.style.textDecoration="";
+                
+            }
+        
+       }
+
+       function AddTask(){
+
+        taskarr.push(taskname.value);
+        datearr.push(date.value);
+
+        htmlupdt();
+        taskname.value="";
+        date.value="";
+       }  
+
+       function DeleteTask(i){
+
+        datearr.splice(i, 1);
+        taskarr.splice(i, 1);
+        htmlupdt();
+       }
+
+       function htmlupdt(){
+        htmllist=``;
+      for( i=0; i<taskarr.length;i++)
+       {
+         const task=taskarr[i];
+         const date1=datearr[i];
+         const html=`<div  class="TaskTile">
+        <input type="checkbox" class="check" onchange="check(${i});">
+    <div >
+        <p id="T${i}" class="TaskName">${task}</p>
+    </div>
+    <div class="TaskDate">
+        <p>${date1}</p>
+    </div>
+    <div class="Buttons">
+        
+        <button class="delete-bttn" onclick="DeleteTask(${i});">Delete</button>
+    </div>
+</div>`;
+         htmllist+=html;
+       }
+       para.innerHTML=htmllist;
+    }
+
+ 
+     
+    </script>
+    
+</body>
+
+</html>
