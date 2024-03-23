@@ -1,1 +1,1 @@
-![Image Alt text](/Images/RockPaperScissor.png "Optional title"))
+![Image Alt text](/Images/RockPaperScissor.png "Optional title")
